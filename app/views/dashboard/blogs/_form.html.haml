@@ -1,0 +1,18 @@
+= semantic_form_for [:dashboard, @blog] do |f|
+  = f.inputs do
+    = f.input :title, :label => 'Post Title'
+    = f.input :content, :as => :ckeditor, :label => false, :input_html => { :toolbar => 'Easy' }
+    = f.input :tags
+    
+    = f.inputs :name => 'Optional Settings' do
+      = f.input :published, :as => :boolean
+      = f.input :seo_meta_title, :label => 'SEO Title', :prepend => '@'
+      = f.input :seo_meta_keys, :label => 'SEO Keywords'
+      = f.input :seo_meta_desc, :label => 'SEO Description'
+    
+
+    
+    
+
+  = f.actions do
+    = f.action :submit, :label => t(".buttons.save.content").html_safe, :as => :button, :button_html => { :class => t(".buttons.save.css") }

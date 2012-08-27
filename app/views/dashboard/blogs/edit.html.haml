@@ -1,0 +1,20 @@
+.page
+  .header
+    .links
+      = link_to new_dashboard_blog_path, :class => t("dashboard.blogs.buttons.add.css"), :title => t("dashboard.blogs.buttons.add.title") do
+        = t("dashboard.blogs.buttons.add.content").html_safe
+      = link_to dashboard_blogs_path(@blog), :class => t("dashboard.blogs.buttons.delete.css"), :title => t("dashboard.blogs.buttons.delete.title"), :confirm => t("dashboard.blogs.buttons.delete.confirm"), :method => :delete do
+        = t("dashboard.blogs.buttons.delete.content").html_safe
+      = link_to dashboard_blogs_path, :class => t("dashboard.blogs.buttons.index.css"), :title => t("dashboard.blogs.buttons.index.title") do
+        = t("dashboard.blogs.buttons.index.content").html_safe
+    .title
+      = t(".title").html_safe
+      
+  .content
+    = render 'form'
+    
+  .back
+    = link_to  dashboard_blogs_path do
+      %i.icon-arrow-left
+      Go Back
+
