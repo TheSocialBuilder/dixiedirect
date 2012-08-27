@@ -1,0 +1,112 @@
+!!!
+%html{:lang => "en"}
+  %head
+    %title RE Social Builder Website
+    = favicon_link_tag "icon.png"
+    = stylesheet_link_tag    "application", :media => "all"
+    = stylesheet_link_tag    "profile/application", :media => "all"
+    = javascript_include_tag "base"
+    = csrf_meta_tags
+
+  %body.profile
+    #fb-root
+    :javascript
+      (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=400962593297593";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+    
+    .site_container
+    
+      .header
+        .logo
+          - if current_profile.logo.url
+            = link_to image_tag(current_profile.logo.url), root_url
+          - else
+            = link_to image_tag("home/logo_idea.png"), root_url
+          
+        .contact_info
+          .contact_details.pull-left
+            .name
+              = current_profile.name
+            .address
+              = current_profile.location.address_1
+              %br
+              = "#{current_profile.location.city}, #{current_profile.location.state} #{current_profile.location.zip}"
+            .phone
+              = current_profile.phone
+
+          .image.pull-right
+            - if current_profile.avatar.url
+              = image_tag(current_profile.avatar.url, :height => "125")
+            - else
+              = image_tag("default_user.jpeg", :height => "125")
+        
+          
+      .navigation
+
+        %ul
+          %li.active= link_to "Listings", root_url
+          %li= link_to "Blog", blogs_url
+          %li= link_to "About", root_url
+          %li= link_to "Contact", root_url
+
+
+      .main_content
+        .content_wrapper
+          #content
+          / = render_cell :widgets, :search
+          / .column_left
+          /   .yield
+          /     = yield
+          / .column_right
+          /   .sidebar
+          /     = render_cell :widgets, :member_area
+          /     = render_cell :widgets, :recent_blog_posts
+          /     = render_cell :widgets, :facebook
+          /     = render_cell :widgets, :twitter
+
+          
+        .clearfix
+        
+          
+        .social_links
+          %center
+            .icons
+              .iconz{:title => 'Facebook'}
+                %i.icon-facebook-sign
+              .iconz{:title => 'Twitter'}
+                %i.icon-twitter-sign
+              .iconz{:title => 'LinkedIn'}
+                %i.icon-linkedin-sign
+              .iconz{:title => 'Google Plus'}
+                %i.icon-google-plus-sign
+              .iconz{:title => 'Pinterest'}
+                %i.icon-pinterest-sign
+    
+        .main_footer
+          = render_cell :widgets, :newsletter
+          = render_cell :widgets, :recent_blog_posts
+          .widget
+            %h3.title
+              %i.icon-map-marker
+              Location
+            .content
+              / = gmaps(:map_options => { "zoom" => 15, :provider => "google", :provider_key => "AIzaSyA4OioJ5YQQYF7Jr91P8KCgrBjW2PIyGuU", :auto_zoom => false}, :markers => {:data => "[{'lng': '#{current_profile.location.longitude}', 'lat': '#{current_profile.location.latitude}'}]"})
+
+      
+      .footer
+        .footer_right.pull-right
+          = link_to t("dashboard.footer.link_1").html_safe, "#"
+          · 
+          = link_to t("dashboard.footer.link_2").html_safe, "#"
+          · 
+          = link_to t("dashboard.footer.link_3").html_safe, "#"
+        = t("dashboard.footer.copyright")
+
+    = yield :scripts
+      
+    

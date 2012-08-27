@@ -1,0 +1,104 @@
+!!!
+%html{:lang => "en"}
+  %head
+    %meta{:charset => "utf-8"}/
+    %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}/
+    %title RE Social Builder
+    = favicon_link_tag "icon.png"
+    = include_gon(:namespace => 'RESocialBuilder')
+    = stylesheet_link_tag    "application", :media => "all"
+    = stylesheet_link_tag    "dashboard/application", :media => "all"
+    = javascript_include_tag "application", "dashboard/application"
+    
+    = csrf_meta_tags
+    = yield(:head)
+  %body
+    %header
+      .navbar.navbar-fixed-top
+        .navbar-inner
+          .container
+            = link_to dashboard_path, :class => 'brand' do
+              RE Social Builder
+
+            .user_area.pull-right
+              = link_to dashboard_settings_path do
+                .username
+                  = current_account.name
+                .circular_before
+                  .circular{:style => "background: url(#{current_account.fb_image}) top  no-repeat;"}
+        
+      #maincontainer.container          
+        .row
+          .span3
+            .sidebar
+              .sidebar_inner
+                .accordian_box
+                  .accordian
+                    %h3.first_accordian
+                      = link_to t("dashboard.navigation.accordian_1.title").html_safe, "#"
+                    %div
+                      %ul.side_nav
+                        %li#link_dashboard
+                          = link_to t("dashboard.navigation.accordian_1.links.home").html_safe, dashboard_path
+                        %li#link_pages
+                          = link_to t("dashboard.navigation.accordian_1.links.pages").html_safe, dashboard_pages_path
+                        %li#link_blogs.active
+                          = link_to t("dashboard.navigation.accordian_1.links.blogs").html_safe, dashboard_blogs_path
+                        %li#link_facebook_posts
+                          = link_to t("dashboard.navigation.accordian_1.links.facebook_posts").html_safe, dashboard_facebook_posts_path
+                        
+                    %h3
+                      = link_to t("dashboard.navigation.accordian_2.title").html_safe, "#"
+                    %div
+                      %ul.side_nav
+                        %li
+                          = link_to t("dashboard.navigation.accordian_2.links.all_listings").html_safe, dashboard_listings_path
+                        %li
+                          = link_to t("dashboard.navigation.accordian_2.links.listings").html_safe, "#"
+                        %li
+                          = link_to t("dashboard.navigation.accordian_2.links.featured").html_safe, "#"
+                  
+                    %h3
+                      = link_to t("dashboard.navigation.accordian_3.title").html_safe, "#"        
+                    %div
+                      %ul.side_nav
+                        %li
+                          = link_to t("dashboard.navigation.accordian_3.links.users").html_safe, "#"
+                        %li
+                          = link_to t("dashboard.navigation.accordian_3.links.messages").html_safe, "#"
+                        %li
+                          = link_to t("dashboard.navigation.accordian_3.links.user_activity").html_safe, "#"
+                        %li
+                          = link_to t("dashboard.navigation.accordian_3.links.user_searches").html_safe, "#"
+                  
+                    %h3.last_accordian
+                      = link_to t("dashboard.navigation.accordian_4.title").html_safe, "#"
+                    %div
+                      %ul.side_nav
+                        %li.side_nav_header
+                          = t("dashboard.navigation.accordian_4.links.account").html_safe
+                        %li#link_settings
+                          = link_to t("dashboard.navigation.accordian_3.links.settings").html_safe, dashboard_settings_path
+                        %li
+                          = link_to t("dashboard.navigation.accordian_3.links.membership").html_safe, "#"
+                        %li.side_nav_header
+                          = t("dashboard.navigation.accordian_4.links.billing").html_safe
+                        %li#link_transactions
+                          = link_to t("dashboard.navigation.accordian_3.links.transactions").html_safe, dashboard_transactions_path
+                        %li#link_cards
+                          = link_to t("dashboard.navigation.accordian_3.links.cards").html_safe, dashboard_cards_path
+                        %li.divider
+                        %li
+                          = link_to t("dashboard.navigation.accordian_3.links.help").html_safe, "#"
+          .span9
+            = yield
+            
+      .container
+        .footer
+          .footer_right.pull-right
+            = link_to t("dashboard.footer.link_1").html_safe, "#"
+            · 
+            = link_to t("dashboard.footer.link_2").html_safe, "#"
+            · 
+            = link_to t("dashboard.footer.link_3").html_safe, "#"
+          = t("dashboard.footer.copyright")
