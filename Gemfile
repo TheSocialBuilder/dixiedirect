@@ -12,6 +12,14 @@ gem 'mongoid_slug', :git => 'git@github.com:bhammond/mongoid-slug.git'
 gem 'mongoid_taggable_on'
 gem 'will_paginate_mongoid', :git => 'git@github.com:bhammond/will_paginate_mongoid.git'
 
+# Redis Gems
+gem 'redis', '~> 2.2.2'
+gem 'redis-objects'
+gem 'redis-rails'
+gem 'soulmate', :require => 'soulmate/server'
+gem 'rack-contrib'
+gem 'resque', '~> 1.20.0', :require => 'resque/server'
+
 # Image Handling
 gem 'carrierwave'
 gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'

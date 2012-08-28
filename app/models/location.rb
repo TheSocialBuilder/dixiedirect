@@ -16,24 +16,17 @@ class Location
   field :latitude, type: Float
   field :longitude, type: Float
   field :city, type: String
-  field :county, type: String
-  field :county_code, type: String
   field :state, type: String
   field :state_code, type: String
   field :zip, type: String
-  field :country, type: String
-  field :test, type: String
-  field :country_code, type: String
   field :phone, type: String
-  
-  
   
 
   ## associations ##
   embedded_in :locatable, polymorphic: true
   
   ## validations ##
-  attr_accessible :coordinates, :address, :address_formatted, :address_1, :address_2, :latitude, :longitude, :city, :county, :address_1, :county_code, :state, :state_code, :zip, :country, :country_code, :phone
+  attr_accessible :coordinates, :address, :address_formatted, :address_1, :address_2, :latitude, :longitude, :city, :state, :state_code, :zip, :phone
   
   ## scopes ##
   
@@ -55,7 +48,7 @@ class Location
       obj.latitude     = geo.latitude
       obj.longitude    = geo.longitude
       obj.coordinates  = geo.coordinates
-      obj.city         = geo.city.titlecase
+      obj.city         = geo.city
       
       
       address_info_1 = geo.address_components_of_type(:street_number).first
@@ -68,22 +61,12 @@ class Location
         obj.address += " #{obj.address_2}" if obj.address_2
       end
       
-      if county = geo.address_components_of_type(:administrative_area_level_2).first
-        obj.county = county['long_name']
-      end
       
       
-      if county = geo.address_components_of_type(:administrative_area_level_2).first
-        obj.county_code = county['short_name']
-      end
-      
-      obj.state        = geo.state
-      obj.state_code   = geo.state_code
+      obj.state        = geo.state_code
       obj.zip          = geo.postal_code
-      obj.country      = geo.country
-      obj.country_code = geo.country_code
       obj.address_formatted = geo.address.gsub(', USA', '')
-      # raise obj.to_yaml
+      # raise geo.to_yaml
     end  
   end
 
