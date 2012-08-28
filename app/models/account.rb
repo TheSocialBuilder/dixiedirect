@@ -4,14 +4,20 @@ class Account
   # Includes
   include Mongoid::Document
   include Mongoid::Timestamps
+  include Mongoid::Slug
+  include Mongoid::TaggableOn
   
   
   # Fields
+  
   field :name, type: String
   field :website, type: String
   field :keywords, type: String
   field :year, type: String
   field :status, type: Boolean
+  
+  slug :name, history: true
+  taggable_on :keywords
   
   mount_uploader :logo, LogoUploader
   
@@ -38,17 +44,4 @@ class Account
 
   # Methods
   
-  # Clean up the phone and format it correctly
-  def format_phone
-    if Phoner::Phone.valid? self.phone
-      pn = Phoner::Phone.parse phone, :country_code => '1'
-      self.phone = pn.format("(%a) %f-%l")
-    end
-  end
-  
-  # Format the users full name
-  # def name
-  #   "#{self.first_name} #{self.last_name}"
-  # end
-
 end

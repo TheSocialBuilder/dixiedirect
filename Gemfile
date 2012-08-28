@@ -7,7 +7,9 @@ gem 'thin'
 # Mongoid Gems
 gem 'mongoid', '~> 3.0.0rc'
 gem 'moped', '~> 1.0.0.rc'
+gem 'mongoid_taggable_with_context', :git => 'git@github.com:bhammond/mongoid_taggable_with_context.git'
 gem 'mongoid_slug', :git => 'git@github.com:bhammond/mongoid-slug.git'
+gem 'mongoid_taggable_on'
 gem 'will_paginate_mongoid', :git => 'git@github.com:bhammond/will_paginate_mongoid.git'
 
 # Image Handling

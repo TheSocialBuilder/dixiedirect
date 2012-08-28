@@ -21,7 +21,10 @@ class Home::HomeController < ApplicationController
       account.keywords = biz['keywords']
       account.status = biz['status']
       account.year = biz['year']
-      account.remote_logo_url = "http://dixiedirectcard.com/logos/#{biz['logo']}"
+      # account.remote_logo_url = "http://dixiedirectcard.com/logos/#{biz['logo']}"
+      
+      # Save the account so that the ads image uploaders can access it
+      account.save
       
       advert = account.advertisements.new
       advert.deal = biz['deal']
@@ -35,7 +38,7 @@ class Home::HomeController < ApplicationController
         advert.deal = biz['free_deal']
         advert.type = "free"
         advert.year = biz['year']
-        advert.remote_image_url = "http://dixiedirectcard.com/ads/#{biz['free_image']}"
+        # advert.remote_image_url = "http://dixiedirectcard.com/ads/#{biz['free_image']}"
         advert.save
       end
       
@@ -53,6 +56,7 @@ class Home::HomeController < ApplicationController
       
       
       account.save
+      raise "done"
     end
     raise "done"
     

@@ -1,2 +1,7 @@
 app/assets/images/ads/
 app/assets/images/logos/
+
+public/uploads/
+tmp/pids/server.pid
+
+log/development.log
